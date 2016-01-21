@@ -1,0 +1,33 @@
+/*
+ * UserSessionProfile.h
+ *
+ *  Created on: 09.08.2012
+ *      Author: cem
+ */
+
+#ifndef USERSESSIONPROFILE_H_
+#define USERSESSIONPROFILE_H_
+
+#include <string>
+
+#include "UserBandwidth.h"
+#include "UserSession.h"
+#include "UserModel.h"
+//using namespace json;
+class UserSessionProfile {
+private:
+	void getUserModelInfo(UserModel& userModel);
+	void firstUserSessionsDeployment(UserModel& userModel);
+public:
+	UserSessionProfile();
+	~UserSessionProfile();
+	UserSessionProfile(UserModel& userModel,String userId, String ip, int timeInterval);
+	std::string userId;
+	int timeInterval;
+	UserBandwidth *bandwidth;//TODO:check ? definition should be bandwidth
+	UserSession *session;
+	void transferUserProfileInfoIntoUserModel(UserModel& userModel);//
+};
+
+
+#endif /* USERSESSIONPROFILE_H_ */

@@ -1,0 +1,66 @@
+///*
+// * UserSessionProfile.cpp
+// *
+// *  Created on: 06.08.2012
+// *      Author: cem
+// *
+// * JSONModel Sample For UserProfiling\n\n
+//
+//	{\n
+//				"userId":"", \n
+//				"bandwidthAverage":,\n
+//				"authenticationNumber":,\n
+//				"sessionAverageTime":"",\n
+//				"dailyAuthenticationNumber":,\n
+//				"visitFrequencyNumber":"",\n
+//				"visitingFrequency":"",\n
+//				"lastDepartureTime":,\n
+//				"sessionsPerMin":[ {"visitingFrequency":"","bandwidth":},\n
+//							 	   {"visitingFrequency":"","bandwidth":},\n
+//														....\n
+//								 ]\n
+//	} \n
+// */
+//
+//#include "UserSessionProfile.h"
+//
+//using namespace json;
+//
+//UserSessionProfile::UserSessionProfile() {
+//	this->bandwidth = new UserBandwidth();
+//	this->session = new UserSession();
+//}
+//UserSessionProfile::UserSessionProfile(UserModel& userModel, String userId, String ip,
+//		int timeInterval) {
+////	std::cout<<"UserSessionProfile start"<<std::endl;
+//	this->bandwidth = new UserBandwidth();
+//	this->bandwidth->ip = ip;
+//	this->bandwidth->userId = userId;
+//	this->session = new UserSession();
+//	this->userId = userId;
+//	this->timeInterval = timeInterval;
+//
+//	try {
+//		this->getUserModelInfo(userModel);
+//	} catch (Exception& e) {
+//		e.what();
+//	}
+//	//std::cout<<"UserSessionProfile ended"<<std::endl;
+//}
+//UserSessionProfile::~UserSessionProfile() {
+//	delete bandwidth;
+//	delete session;
+//}
+//void UserSessionProfile::getUserModelInfo(UserModel& userModel) {
+//	this->bandwidth->getParametersFromUserModel(userModel);
+//	this->session->getParametersFromUserModel(userModel);
+//}
+//
+//
+//void UserSessionProfile::transferUserProfileInfoIntoUserModel(
+//		UserModel& userModel) {
+//		this->session->setParametersToUserModel(userModel,this, this->bandwidth->ip);
+//		this->bandwidth->setParametersToUserModel(userModel,this);
+//
+//}
+//

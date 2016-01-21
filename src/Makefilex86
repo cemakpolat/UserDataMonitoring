@@ -1,0 +1,45 @@
+CONN_MODULES_FILES = conn/PracticalSocket conn/TCPConnection
+QOE_MODULES_FILES = qoe/QoE qoe/QoETracker
+USERPROFILLING_MODULES_FILES = userProfiling/AuthenticationPlatformHAPD userProfiling/MeasurementPlane userProfiling/UPMain userProfiling/UPMonitoring \
+				userProfiling/UserAuthListObject userProfiling/UserBandwidth \
+				userProfiling/UserModel userProfiling/UserSession
+UTILS_MODULES_FILES= utils/CommLang
+
+MISSING_HEADERS = -I utils/ -I dme/ -I conn/ -I userProfiling/ -I qoe/ -I $(STAGING_DIR)/usr/include -I /home/cem/workspace-ccpp/uloopmessageapi/libmessageapi \
+-I /home/cem/workspace-ccpp/uloopmessageapi/libcryptoid/
+
+REMOVE = rm -rf
+
+BINARY = MM
+
+all: binary
+
+binary: compile_conn_modules compile_qoe_modules compile_userprofilling_modules compile_utils_modules 
+	$(CXX) -o $(BINARY) \
+	conn/PracticalSocket.o conn/TCPConnection.o \
+	userProfiling/AuthenticationPlatformHAPD.o userProfiling/MeasurementPlane.o userProfiling/UPMain.o userProfiling/UPMonitoring.o \
+	userProfiling/UserAuthListObject.o userProfiling/UserBandwidth.o \
+	userProfiling/UserModel.o userProfiling/UserSession.o \
+	qoe/QoE.o qoe/QoETracker.o \
+	utils/CommLang.o \
+        -l pthread -Wl,-rpath-link=$(STAGING_DIR)/usr/lib -lssl -lcrypto -lprotobuf-c -lmessageapi -lcryptoid -L $(STAGING_DIR)/usr/lib \
+        -L  /home/cem/workspace-ccpp/uloopmessageapi/libmessageapi/ -L  /home/cem/workspace-ccpp/uloopmessageapi/libcryptoid/
+
+compile_conn_modules: 
+	$(foreach file, $(CONN_MODULES_FILES), $(CXX) -c $(file).cpp $(MISSING_HEADERS) -o $(file).o ;)
+
+compile_qoe_modules:
+	$(foreach file, $(QOE_MODULES_FILES), $(CXX) -Wall -c $(file).cpp $(MISSING_HEADERS) -o $(file).o ;)
+
+compile_userprofilling_modules:
+	$(foreach file, $(USERPROFILLING_MODULES_FILES), $(CXX) -c $(file).cpp $(MISSING_HEADERS) -o $(file).o ;)
+
+compile_utils_modules:
+	$(foreach file, $(UTILS_MODULES_FILES), $(CXX) -c $(file).cpp $(MISSING_HEADERS) -o $(file).o ;)
+
+clean:
+	$(foreach file, $(CONN_MODULES_FILES), $(REMOVE) $(file).o ;)
+	$(foreach file, $(QOE_MODULES_FILES)$, $(REMOVE) $(file).o ;)
+	$(foreach file, $(USERPROFILLING_MODULES_FILES), $(REMOVE) $(file).o ;)
+	$(foreach file, $(UTILS_MODULES_FILES), $(REMOVE) $(file).o ;)
+	$(REMOVE) $(BINARY)
